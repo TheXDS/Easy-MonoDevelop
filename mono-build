@@ -1,0 +1,24 @@
+#!/bin/bash
+# Este script obtiene las fuentes de MonoDevelop especificadas y las compila.
+#
+# Es compatible con Ubuntu, y probablemente con otras distribuciones derivadas,
+# como ser Linux Mint. Solo es necesario ejecutar este script la primera vez
+# que se compile MonoDevelop en un equipo!
+#
+# Autor: César Andrés Morgan <xds_xps_ivx@hotmail.com>
+
+rm -r /usr/src/monodevelop > /dev/null
+git clone https://github.com/mono/monodevelop.git --branch monodevelop-$1 --depth 1 /usr/src/monodevelop
+cd /usr/src/monodevelop
+./configure --profile=stable --enable-release
+git submodule update --init --recursive
+# Esto se ejecuta dos veces, parece que a la primera la compilación falla...
+make -j$(cat /proc/cpuinfo | grep processor | wc -l)
+make -j$(cat /proc/cpuinfo | grep processor | wc -l)
+checkinstall -y
+dpkg -r monodevelop
+
+# Personalmente, yo necesito copiar el paquete resultante a un share de SMB.
+# Esta línea puede ser modificada o eliminada con seguridad.
+smbclient //netgear/usb_storage -Nc 'prompt OFF ; mput *.deb'
+
