@@ -2,8 +2,12 @@
 # Este script obtiene las fuentes de MonoDevelop especificadas y las compila.
 #
 # Es compatible con Ubuntu, y probablemente con otras distribuciones derivadas,
-# como ser Linux Mint. Solo es necesario ejecutar este script la primera vez
-# que se compile MonoDevelop en un equipo!
+# como ser Linux Mint.
+# 
+# Sintáxis:
+# mono-build VERSIÓN
+#
+#     VERSIÓN: versión de MonoDevelop a compilar (p. ej. 7.3.2.12)
 #
 # Autor: César Andrés Morgan <xds_xps_ivx@hotmail.com>
 
